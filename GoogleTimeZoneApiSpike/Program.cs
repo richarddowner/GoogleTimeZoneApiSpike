@@ -9,7 +9,7 @@ namespace GoogleTimeZoneApiSpike
     {
         private static void Main(string[] args)
         {
-            var inputDateTimeUtcData = new TimeZoneInputData
+            var timeZoneInputData = new TimeZoneInputData
             {
                 Longatude = -44.490947,
                 Latatude = 171.220966,
@@ -18,11 +18,11 @@ namespace GoogleTimeZoneApiSpike
 
             var uri = string.Format(
                 @"https://maps.googleapis.com/maps/api/timezone/json?location={0},{1}&timestamp={2}",
-                inputDateTimeUtcData.Longatude, inputDateTimeUtcData.Latatude, inputDateTimeUtcData.TimeStamp
+                timeZoneInputData.Longatude, timeZoneInputData.Latatude, timeZoneInputData.TimeStamp
             );
 
             TimeZoneResponseData timeZoneResponse = GetTimeZoneResponseData(uri);
-            string output = CreateOutput(inputDateTimeUtcData, timeZoneResponse);
+            string output = CreateOutput(timeZoneInputData, timeZoneResponse);
             Console.WriteLine(output);
 
             Console.ReadLine();
@@ -34,15 +34,12 @@ namespace GoogleTimeZoneApiSpike
             request.Method = WebRequestMethods.Http.Get;
             request.Accept = "application/json";
 
-            using (var response = (HttpWebResponse)request.GetResponse())
-            {
-                using (var reader = new StreamReader(response.GetResponseStream()))
-                {
-                    var js = new JavaScriptSerializer();
-                    var objText = reader.ReadToEnd();
-                    return (TimeZoneResponseData)js.Deserialize(objText, typeof(TimeZoneResponseData));
-                }
-            }
+            var response = (HttpWebResponse) request.GetResponse();
+            var objText = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            var serializer = new JavaScriptSerializer();
+            var timeZoneResponseData = (TimeZoneResponseData)serializer.Deserialize(objText, typeof(TimeZoneResponseData));
+            return timeZoneResponseData;
         }
 
         public static string CreateOutput(TimeZoneInputData inputTimeZoneData, TimeZoneResponseData responseData)
