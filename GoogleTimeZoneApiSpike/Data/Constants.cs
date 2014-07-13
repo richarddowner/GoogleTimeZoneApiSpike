@@ -1,4 +1,4 @@
-﻿namespace GoogleTimeZoneApiSpike.Settings
+﻿namespace GoogleTimeZoneApiSpike.Data
 {
     public static class Constants
     {

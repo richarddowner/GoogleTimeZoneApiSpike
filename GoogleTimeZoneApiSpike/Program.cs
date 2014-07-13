@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using GoogleTimeZoneApiSpike.Dto;
-using GoogleTimeZoneApiSpike.Settings;
+using GoogleTimeZoneApiSpike.Data;
+using GoogleTimeZoneApiSpike.Dtos;
 using Newtonsoft.Json;
 
 namespace GoogleTimeZoneApiSpike

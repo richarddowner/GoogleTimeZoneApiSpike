@@ -1,4 +1,4 @@
-﻿namespace GoogleTimeZoneApiSpike.Dto
+﻿namespace GoogleTimeZoneApiSpike.Dtos
 {
     public class TimeZoneResponseData
     {
