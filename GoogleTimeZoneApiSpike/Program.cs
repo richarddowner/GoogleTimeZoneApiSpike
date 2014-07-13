@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web.Script.Serialization;
+using System.Net.Http;
 using GoogleTimeZoneApiSpike.Dto;
 using GoogleTimeZoneApiSpike.Settings;
+using Newtonsoft.Json;
 
 namespace GoogleTimeZoneApiSpike
 {
-    class Program
+    static class Program
     {
         private static void Main()
         {
@@ -38,21 +39,19 @@ namespace GoogleTimeZoneApiSpike
             Console.ReadLine();
         }
 
-        public static TimeZoneResponseData GetTimeZoneResponseData(string uri)
+        private static TimeZoneResponseData GetTimeZoneResponseData(string uri)
         {
             var request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = WebRequestMethods.Http.Get;
             request.Accept = "application/json";
 
-            var response = (HttpWebResponse) request.GetResponse();
-            var objText = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
-            var serializer = new JavaScriptSerializer();
-            var timeZoneResponseData = (TimeZoneResponseData)serializer.Deserialize(objText, typeof(TimeZoneResponseData));
-            return timeZoneResponseData;
+            var httpClient = new HttpClient();
+            var response = httpClient.GetAsync(uri).Result;
+            var objectData = response.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<TimeZoneResponseData>(objectData);
         }
 
-        public static string CreateOutput(TimeZoneInputData inputTimeZoneData, TimeZoneResponseData responseData)
+        private static string CreateOutput(TimeZoneInputData inputTimeZoneData, TimeZoneResponseData responseData)
         {
             var unixDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             DateTime convertedDateTime = unixDateTimeUtc.AddSeconds(inputTimeZoneData.TimeStamp + responseData.RawOffset);
