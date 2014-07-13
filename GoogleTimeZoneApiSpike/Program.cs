@@ -4,12 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Script.Serialization;
+using GoogleTimeZoneApiSpike.Dto;
 
 namespace GoogleTimeZoneApiSpike
 {
     class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             IEnumerable<string[]> inputData = File.ReadAllLines("input.csv").Select(x => x.Split(','));
 
@@ -30,8 +31,7 @@ namespace GoogleTimeZoneApiSpike
                 );
 
                 TimeZoneResponseData timeZoneResponse = GetTimeZoneResponseData(uri);
-                string output = CreateOutput(timeZoneInputData, timeZoneResponse);
-                Console.WriteLine(output);
+                Console.WriteLine(CreateOutput(timeZoneInputData, timeZoneResponse));
             }
 
             Console.ReadLine();

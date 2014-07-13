@@ -4,3 +4,4 @@ C:\dev\GoogleTimeZoneApiSpike\GoogleTimeZoneApiSpike\bin\Debug\GoogleTimeZoneApi
 C:\dev\GoogleTimeZoneApiSpike\GoogleTimeZoneApiSpike\obj\Debug\GoogleTimeZoneApiSpike.exe
 C:\dev\GoogleTimeZoneApiSpike\GoogleTimeZoneApiSpike\obj\Debug\GoogleTimeZoneApiSpike.pdb
 C:\dev\GoogleTimeZoneApiSpike\GoogleTimeZoneApiSpike\bin\Debug\input.csv
+C:\dev\GoogleTimeZoneApiSpike\GoogleTimeZoneApiSpike\obj\Debug\GoogleTimeZoneApiSpike.csprojResolveAssemblyReference.cache

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GoogleTimeZoneApiSpike
+namespace GoogleTimeZoneApiSpike.Dto
 {
     public class TimeZoneInputData
     {
