@@ -46,6 +46,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dto\TimeZoneInputData.cs" />
     <Compile Include="Dto\TimeZoneResponseData.cs" />
+    <Compile Include="Settings\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

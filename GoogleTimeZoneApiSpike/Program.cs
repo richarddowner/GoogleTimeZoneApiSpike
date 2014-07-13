@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Script.Serialization;
 using GoogleTimeZoneApiSpike.Dto;
+using GoogleTimeZoneApiSpike.Settings;
 
 namespace GoogleTimeZoneApiSpike
 {
@@ -12,7 +13,7 @@ namespace GoogleTimeZoneApiSpike
     {
         private static void Main()
         {
-            IEnumerable<string[]> inputData = File.ReadAllLines("input.csv").Select(x => x.Split(','));
+            IEnumerable<string[]> inputData = File.ReadAllLines(Constants.InputFile).Select(x => x.Split(','));
 
             var timeZoneInputDataCollection = inputData.Select(
                 x => new TimeZoneInputData
@@ -57,9 +58,9 @@ namespace GoogleTimeZoneApiSpike
             DateTime convertedDateTime = unixDateTimeUtc.AddSeconds(inputTimeZoneData.TimeStamp + responseData.RawOffset);
 
             var output = string.Format("{0},{1},{2},{3},{4}",
-                inputTimeZoneData.TimeZoneDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                inputTimeZoneData.TimeZoneDateTime.ToString(Constants.DateFormat),
                 inputTimeZoneData.Longatude, inputTimeZoneData.Latatude, responseData.TimeZoneId,
-                convertedDateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                convertedDateTime.ToString(Constants.DateFormat)
             );
 
             return output;
