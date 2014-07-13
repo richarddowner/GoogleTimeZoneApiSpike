@@ -8,7 +8,7 @@ namespace GoogleTimeZoneApiSpike.Dto
 
         public double Latatude { get; set; }
 
-        public long TimeStamp { get; set; }
+        public long TimeStamp { get; private set; }
 
         private DateTime _timeZoneDateTime;
         public DateTime TimeZoneDateTime
