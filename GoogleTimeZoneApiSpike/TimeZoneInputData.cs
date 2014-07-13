@@ -2,7 +2,7 @@
 
 namespace GoogleTimeZoneApiSpike
 {
-    public class TimeZoneData
+    public class TimeZoneInputData
     {
         public double Longatude { get; set; }
 

@@ -9,7 +9,7 @@ namespace GoogleTimeZoneApiSpike
     {
         private static void Main(string[] args)
         {
-            var inputDateTimeUtcData = new TimeZoneData
+            var inputDateTimeUtcData = new TimeZoneInputData
             {
                 Longatude = -44.490947,
                 Latatude = 171.220966,
@@ -45,7 +45,7 @@ namespace GoogleTimeZoneApiSpike
             }
         }
 
-        public static string CreateOutput(TimeZoneData inputTimeZoneData, TimeZoneResponseData responseData)
+        public static string CreateOutput(TimeZoneInputData inputTimeZoneData, TimeZoneResponseData responseData)
         {
             var unixDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             DateTime convertedDateTime = unixDateTimeUtc.AddSeconds(inputTimeZoneData.TimeStamp + responseData.RawOffset);
