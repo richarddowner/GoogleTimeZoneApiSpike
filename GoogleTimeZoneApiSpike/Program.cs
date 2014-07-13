@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Web.Script.Serialization;
 
@@ -9,21 +11,28 @@ namespace GoogleTimeZoneApiSpike
     {
         private static void Main(string[] args)
         {
-            var timeZoneInputData = new TimeZoneInputData
+            IEnumerable<string[]> inputData = File.ReadAllLines("input.csv").Select(x => x.Split(','));
+
+            var timeZoneInputDataCollection = inputData.Select(
+                x => new TimeZoneInputData
+                {
+                    TimeZoneDateTime = Convert.ToDateTime(x[0]), 
+                    Longatude = Convert.ToDouble(x[1]), 
+                    Latatude = Convert.ToDouble(x[2])
+                }
+            ).ToList();
+            
+            foreach (var timeZoneInputData in timeZoneInputDataCollection)
             {
-                Longatude = -44.490947,
-                Latatude = 171.220966,
-                TimeZoneDateTime = new DateTime(2013, 7, 10, 2, 52, 49, DateTimeKind.Utc)
-            };
+                var uri = string.Format(
+                    @"https://maps.googleapis.com/maps/api/timezone/json?location={0},{1}&timestamp={2}",
+                    timeZoneInputData.Longatude, timeZoneInputData.Latatude, timeZoneInputData.TimeStamp
+                );
 
-            var uri = string.Format(
-                @"https://maps.googleapis.com/maps/api/timezone/json?location={0},{1}&timestamp={2}",
-                timeZoneInputData.Longatude, timeZoneInputData.Latatude, timeZoneInputData.TimeStamp
-            );
-
-            TimeZoneResponseData timeZoneResponse = GetTimeZoneResponseData(uri);
-            string output = CreateOutput(timeZoneInputData, timeZoneResponse);
-            Console.WriteLine(output);
+                TimeZoneResponseData timeZoneResponse = GetTimeZoneResponseData(uri);
+                string output = CreateOutput(timeZoneInputData, timeZoneResponse);
+                Console.WriteLine(output);
+            }
 
             Console.ReadLine();
         }
